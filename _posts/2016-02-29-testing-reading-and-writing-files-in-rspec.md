@@ -92,6 +92,45 @@ RSpec.describe AddNumbers do
 end
 {% endhighlight %}
 
+Filling out the business logic gives us:
+
+{% highlight ruby %}
+#!/usr/bin/env ruby
+require 'csv'
+
+class AddNumbers
+  attr_accessor :in_file_path, :out_file_path
+
+  def initialize(args)
+    @in_file_path = args[0]
+    @out_file_path = args[1]
+  end
+
+  def run
+    number_pairs.each do |pair|
+      out_file << [pair[0].to_i + pair[1].to_i]
+    end
+
+    out_file.close
+  end
+
+  private
+
+  def number_pairs
+    @number_pairs ||= CSV.readlines(in_file_path)
+  end
+
+  def out_file
+    @out_file ||= CSV.open(out_file_path, 'wb')
+  end
+end
+
+# Use Ruby constants to make the file runnable from the command line
+if $PROGRAM_NAME == __FILE__
+  AddNumbers.new(ARGV).run
+end
+{% endhighlight %}
+
 ## Faking the Files
 
 Running the above spec fails because `test.csv` doesn't exist. We need some way of providing a fake file to the spec. There are numerous ways to do this, from using `double` to mock the filesystem, to including a gem that mocks the filesystem completely. The best way I've found, however, is to use actual files that live only for the duration of the spec. Ruby's [Tempfile][tempfile-doc] is perfect for this.
