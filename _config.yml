@@ -3,6 +3,7 @@ title: mattm
 baseurl: "" # the subpath of your site, e.g. /blog/
 twitter_username: mmcnierney
 github_username:  mmcnierney14
+permalink: /:year/:month/:day/:title.html
 
 # Build settings
 markdown: kramdown
