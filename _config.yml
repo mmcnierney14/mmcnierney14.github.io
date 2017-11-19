@@ -6,3 +6,7 @@ github_username:  mmcnierney14
 
 # Build settings
 markdown: kramdown
+
+kramdown:
+  input: GFM
+  hard_wrap: false

@@ -50,3 +50,8 @@ $on-laptop:        800px;
         "layout",
         "syntax-highlighting"
 ;
+
+// Custom CSS
+pre, code {
+  background-color: #FFF
+}
